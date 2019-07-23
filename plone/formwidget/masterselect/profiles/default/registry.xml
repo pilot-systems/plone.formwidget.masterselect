@@ -1,0 +1,16 @@
+<registry>
+  <records prefix="plone.resources/masterselect"
+           interface="Products.CMFPlone.interfaces.IResourceRegistry">
+    <value key="js">++resource++plone.formwidget.masterselect/masterselect.js</value>
+  </records>
+
+    <records prefix="plone.bundles/masterselect"
+            interface='Products.CMFPlone.interfaces.IBundleRegistry'>
+        <value key="resources">
+          <element>masterselect</element>
+        </value>
+        <value key="enabled">True</value>
+        <value key="depends">plone</value>
+        <value key="compile">True</value>
+    </records>
+</registry>

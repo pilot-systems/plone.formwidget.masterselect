@@ -4,6 +4,9 @@ Changelog
 1.7 (unreleased)
 ----------------
 
+- Added a Plone 5 resource and bundle
+  [thomasdesvenain]
+
 - Removed deprecated ``simplejson`` dependency
   [keul]
 
