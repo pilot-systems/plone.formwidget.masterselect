@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-from Testing import ZopeTestCase as ztc
+import unittest
+
 from plone.formwidget.masterselect.testing import \
     PLONE_FORMWIDGET_MASTERSELECT_INTEGRATION
-import unittest
+from Testing import ZopeTestCase as ztc
 
 
 class DecoUITestCase(unittest.TestCase):

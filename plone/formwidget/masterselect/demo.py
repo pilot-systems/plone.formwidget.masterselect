@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from plone.formwidget.masterselect import MasterSelectBoolField
-from plone.formwidget.masterselect import MasterSelectField
-from plone.formwidget.masterselect import _
+from plone.formwidget.masterselect import (MasterSelectBoolField,
+                                           MasterSelectField, _)
 from plone.supermodel import model
+from six.moves import range
 from zope import schema
 
 
@@ -12,7 +12,7 @@ def getSlaveVocab(master):
 
     The displayed value has 'num: ' prepended.
     """
-    results = range(int(master) + 1, 10)
+    results = list(range(int(master) + 1, 10))
     results = [(str(a), 'num: ' + str(a)) for a in results]
     return results
 
@@ -24,7 +24,7 @@ def getSlaveVocab2(master):
     The displayed value will be capitalized, the stored value lowercase.
     """
     numeric = ord(master)
-    results = range(numeric + 1, numeric + 6)
+    results = list(range(numeric + 1, numeric + 6))
     results = [(chr(a), chr(a).upper()) for a in results]
     return results
 

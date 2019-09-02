@@ -1,8 +1,7 @@
+from z3c.form.i18n import MessageFactory as _
 from zope.interface import Interface
 from zope.schema import Tuple
 from zope.schema.interfaces import IObject
-
-from z3c.form.i18n import MessageFactory as _
 
 
 class IMasterSelectWidget(Interface):

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from plone.testing import layered
+import os
+import unittest
+
+import robotsuite
 from plone.formwidget.masterselect.testing import \
     PLONE_FORMWIDGET_MASTERSELECT_ROBOT
-
-import os
-import robotsuite
-import unittest
+from plone.testing import layered
 
 
 def test_suite():

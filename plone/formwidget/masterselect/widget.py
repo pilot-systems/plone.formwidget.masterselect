@@ -1,31 +1,25 @@
 import copy
-
-from Acquisition import aq_inner, aq_parent
-
-from zope.component import adapter
-from zope.interface import implements, implementer
-from zope.schema.interfaces import IContextSourceBinder, IBool
-from zope.schema.interfaces import IVocabularyTokenized
-from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
-from zope.browser.interfaces import IBrowserView
-from zope.i18n import translate
-
-from z3c.form import interfaces
-from z3c.form.widget import FieldWidget
-from z3c.form.browser import select, checkbox, radio
-
-from Products.CMFPlone.utils import safe_unicode
-from Products.Five.browser import BrowserView
-
-from plone.formwidget.masterselect.interfaces import IMasterSelectField
-from plone.formwidget.masterselect.interfaces import IMasterSelectBoolField
-from plone.formwidget.masterselect.interfaces import IMasterSelectRadioField
-from plone.formwidget.masterselect.interfaces import IMasterSelectWidget
-from plone.formwidget.masterselect.interfaces import IMasterSelectBoolWidget
-from plone.formwidget.masterselect.interfaces import IMasterSelectRadioWidget
-
 import json
 
+from Acquisition import aq_inner, aq_parent
+from plone.formwidget.masterselect.interfaces import (IMasterSelectBoolField,
+                                                      IMasterSelectBoolWidget,
+                                                      IMasterSelectField,
+                                                      IMasterSelectRadioField,
+                                                      IMasterSelectRadioWidget,
+                                                      IMasterSelectWidget)
+from Products.CMFPlone.utils import safe_unicode
+from Products.Five.browser import BrowserView
+from z3c.form import interfaces
+from z3c.form.browser import checkbox, radio, select
+from z3c.form.widget import FieldWidget
+from zope.browser.interfaces import IBrowserView
+from zope.component import adapter
+from zope.i18n import translate
+from zope.interface import implementer
+from zope.schema.interfaces import (IBool, IContextSourceBinder,
+                                    IVocabularyTokenized)
+from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 
 BINDERS = dict(
     vocabulary= "jQuery('%(masterID)s').bindMasterSlaveVocabulary(%(json)s);",
@@ -122,26 +116,26 @@ class MasterSelect(object):
         return JQUERY_ONLOAD % '\n'.join(self.renderJS())
 
 
+@implementer(IMasterSelectWidget)
 class MasterSelectWidget(select.SelectWidget, MasterSelect):
     """Master Select Widget
     """
-    implements(IMasterSelectWidget)
 
     klass = u'masterselect-widget'
 
 
+@implementer(IMasterSelectBoolWidget)
 class MasterSelectBoolWidget(checkbox.SingleCheckBoxWidget, MasterSelect):
     """MasterSelectBoolWidget
     """
-    implements(IMasterSelectBoolWidget)
 
     klass = u'masterselect-widget'
 
 
+@implementer(IMasterSelectRadioWidget)
 class MasterSelectRadioWidget(radio.RadioWidget, MasterSelect):
     """MasterSelectRadioWidget
     """
-    implements(IMasterSelectRadioWidget)
 
     klass = u'masterselect-widget'
 
@@ -257,7 +251,7 @@ class MasterSelectJSONValue(BrowserView):
                 widget.updateTerms()
                 widget.update()
                 # widget may define items as a property or as a method
-                items = widget.items if not callable(widget.items) else widget.items()
+                items = widget.items if not callable(widget.items) else list(widget.items())
                 # translate if possible. content can be a Message, a string, a unicode
                 for item in items:
                     item['content'] = translate(safe_unicode(item['content']), context=self.request)
